@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório Técnico Epidemiológico - Dengue Sorocaba</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 1.5cm;
+    }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .print-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #003865;
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+    .btn-print {
+      background: #f59e0b;
+      color: #0f172a;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-print:hover {
+      background: #d97706;
+    }
+    .header {
+      border-bottom: 2px solid #003865;
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-text h1 {
+      font-size: 20px;
+      color: #003865;
+      margin: 0 0 5px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .header-text h2 {
+      font-size: 13px;
+      color: #64748b;
+      margin: 0;
+      font-weight: 500;
+    }
+    .badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      border: 1px solid #bae6fd;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .kpi-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .kpi-title {
+      font-size: 11px;
+      color: #64748b;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .kpi-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: #003865;
+    }
+    .kpi-val.alert {
+      color: #d97706;
+    }
+    .kpi-val.success {
+      color: #16a34a;
+    }
+    .kpi-sub {
+      font-size: 10px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+    h3 {
+      font-size: 15px;
+      color: #003865;
+      border-left: 4px solid #f59e0b;
+      padding-left: 10px;
+      margin: 25px 0 12px 0;
+    }
+    p {
+      font-size: 12px;
+      color: #334155;
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 10px;
+      margin-bottom: 25px;
+    }
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: bold;
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+    .footer {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 20px;
+      margin-top: 30px;
+      font-size: 10px;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+    }
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .container {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .print-bar {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Barra Superior de Impressão -->
+    <div class="print-bar">
+      <div>
+        <strong>Relatório Oficial em Formato PDF</strong>
+        <div style="font-size: 12px; opacity: 0.85;">Clique no botão ao lado e selecione "Salvar como PDF" no seu navegador.</div>
+      </div>
+      <button class="btn-print" onclick="window.print()">
+        📄 Salvar como PDF
+      </button>
+    </div>
+
+    <!-- Cabeçalho Institucional -->
+    <div class="header">
+      <div class="header-text">
+        <h1>Prefeitura Municipal de Sorocaba</h1>
+        <h2>Secretaria da Saúde • Divisão de Vigilância Epidemiológica • Projeto Integrador IV</h2>
+      </div>
+      <div class="badge">
+        SE 38 / 2026 • Oficial
+      </div>
+    </div>
+
+    <!-- Título do Boletim -->
+    <div style="margin-bottom: 25px;">
+      <h2 style="font-size: 18px; color: #0f172a; margin: 0 0 5px 0;">Boletim Técnico Epidemiológico de Arboviroses</h2>
+      <div style="font-size: 11px; color: #64748b;">
+        Município: Sorocaba/SP | Código IBGE: 355220 | População Estimada (IBGE): 723.682 hab. | Data: 21 de Setembro de 2026
+      </div>
+    </div>
+
+    <!-- Quadro de Indicadores Chave -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-title">Casos Notificados</div>
+        <div class="kpi-val">18.450</div>
+        <div class="kpi-sub">Suspeitos avaliados</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Casos Confirmados</div>
+        <div class="kpi-val alert">12.890</div>
+        <div class="kpi-sub">Positividade: 69,8%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Taxa de Incidência</div>
+        <div class="kpi-val alert">1.781</div>
+        <div class="kpi-sub">Por 100 mil hab. (Alta)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Óbitos Confirmados</div>
+        <div class="kpi-val success">0</div>
+        <div class="kpi-sub">Letalidade: 0,0%</div>
+      </div>
+    </div>
+
+    <!-- Seção 1: Análise Epidemiológica & Metodologia -->
+    <h3>1. Metodologia e Solução para o Georreferenciamento (DATASUS / LGPD)</h3>
+    <p>
+      Em conformidade com a Lei Geral de Proteção de Dados (LGPD) e normativas do Ministério da Saúde para o Sistema de Informação de Agravos de Notificação (SINAN), as variáveis de logradouro, endereço e nome de bairro foram suprimidas das bases públicas de microdados para resguardar o sigilo e a privacidade dos munícipes.
+    </p>
+    <p>
+      Para viabilizar a análise espacial de risco sem comprometer o rigor técnico, este painel emprega o <strong>código do estabelecimento de saúde notificador (CNES)</strong> como <em>proxy territorial regional</em>. Como a rede de urgência e atenção básica de Sorocaba é regionalizada em bacias de atendimento consolidadas (UPH Zona Norte, UPH Zona Oeste, PA Laranjeiras, PA Éden, PA Brigadeiro Tobias e UBSs locais), o volume de notificações por estabelecimento espelha com fidelidade as áreas de maior pressão de transmissão vetorial.
+    </p>
+
+    <!-- Seção 2: Tabela de Unidades Notificadoras de Sorocaba -->
+    <h3>2. Distribuição por Estabelecimentos Notificadores de Sorocaba (CNES)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Unidade de Atendimento</th>
+          <th>Código CNES</th>
+          <th>Região / Bacia</th>
+          <th style="text-align: right;">Notificados</th>
+          <th style="text-align: right;">Confirmados</th>
+          <th style="text-align: right;">Casos Graves</th>
+          <th style="text-align: right;">Positividade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>UPH Zona Norte</strong> (Dr. Olavo Pasqualin)</td>
+          <td>2081682</td>
+          <td>Zona Norte</td>
+          <td style="text-align: right;">4.820</td>
+          <td style="text-align: right;">3.410</td>
+          <td style="text-align: right;">45</td>
+          <td style="text-align: right;">70,7%</td>
+        </tr>
+        <tr>
+          <td><strong>UPH Zona Oeste</strong> (Dr. Américo de Souza)</td>
+          <td>2081704</td>
+          <td>Zona Oeste</td>
+          <td style="text-align: right;">3.910</td>
+          <td style="text-align: right;">2.750</td>
+          <td style="text-align: right;">38</td>
+          <td style="text-align: right;">70,3%</td>
+        </tr>
+        <tr>
+          <td><strong>PA Laranjeiras</strong></td>
+          <td>2081690</td>
+          <td>Zona Norte</td>
+          <td style="text-align: right;">2.150</td>
+          <td style="text-align: right;">1.530</td>
+          <td style="text-align: right;">21</td>
+          <td style="text-align: right;">71,1%</td>
+        </tr>
+        <tr>
+          <td><strong>PA Éden</strong></td>
+          <td>2081712</td>
+          <td>Zona Leste</td>
+          <td style="text-align: right;">1.740</td>
+          <td style="text-align: right;">1.190</td>
+          <td style="text-align: right;">16</td>
+          <td style="text-align: right;">68,4%</td>
+        </tr>
+        <tr>
+          <td><strong>PA São Bento</strong></td>
+          <td>7112004</td>
+          <td>Zona Norte</td>
+          <td style="text-align: right;">1.620</td>
+          <td style="text-align: right;">1.140</td>
+          <td style="text-align: right;">14</td>
+          <td style="text-align: right;">70,4%</td>
+        </tr>
+        <tr>
+          <td><strong>PA Brigadeiro Tobias</strong></td>
+          <td>2081720</td>
+          <td>Zona Leste</td>
+          <td style="text-align: right;">890</td>
+          <td style="text-align: right;">590</td>
+          <td style="text-align: right;">7</td>
+          <td style="text-align: right;">66,3%</td>
+        </tr>
+        <tr>
+          <td><strong>Conjunto Hospitalar de Sorocaba (CHS)</strong></td>
+          <td>2081607</td>
+          <td>Centro / Regional</td>
+          <td style="text-align: right;">530</td>
+          <td style="text-align: right;">390</td>
+          <td style="text-align: right;">42</td>
+          <td style="text-align: right;">73,5%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Seção 3: Dinâmica do Canal Endêmico -->
+    <h3>3. Diagrama de Controle e Sazonalidade</h3>
+    <p>
+      A curva epidêmica do município concentrou o pico de transmissibilidade entre a Semana Epidemiológica 05 (início de fevereiro) e a SE 12 (final de março), atingindo o ápice na SE 10 com 1.540 casos confirmados. A partir da SE 16, observou-se descenso consistente, mantendo-se atualmente (SE 38) dentro da faixa esperada para o período interepidêmico (inverno/início da primavera).
+    </p>
+
+    <!-- Seção 4: Recomendações e Conclusão -->
+    <h3>4. Recomendações Técnicas para o Período Pré-Sazonal</h3>
+    <p>
+      1. Intensificar ações de bloqueio e remoção de criadouros na Zona Norte (bairros atendidos pela UPH ZN, PA Laranjeiras e PA São Bento), que concentraram mais de 45% do volume total de casos do município.<br>
+      2. Manutenção da capacitação dos profissionais de enfermagem e medicina da rede básica (UBSs) para manejo precoce e prova do laço em pacientes febris.<br>
+      3. Continuidade da busca ativa e notificação ágil para manter a letalidade municipal em 0,0%.
+    </p>
+
+    <div class="footer">
+      <div>Painel Dengue Sorocaba • Projeto Integrador IV • Desenvolvimento Acadêmico & Tecnológico</div>
+      <div>Documento gerado automaticamente para fins técnicos e educativos</div>
+    </div>
+  </div>
+
+</body>
+</html>

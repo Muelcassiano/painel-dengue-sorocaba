@@ -1,0 +1,6 @@
+{
+  "name": "Painel Dengue Sorocaba",
+  "description": "Painel de monitoramento e análise de dados da Dengue em Sorocaba.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
