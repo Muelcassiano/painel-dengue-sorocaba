@@ -34,7 +34,7 @@ A dengue permanece como um dos mais graves desafios sazonais de saúde coletiva 
 Com o advento da **Lei Geral de Proteção de Dados (Lei nº 13.709/2018)**, as plataformas de dados abertos federais suprimiram variáveis de identificação pessoal, logradouro e bairro para resguardar a privacidade dos pacientes. Essa diretriz inviabilizou mapas de calor tradicionais por endereço.
 
 ### A Solução Metodológica: Proxy Territorial por CNES
-Para resolver essa lacuna sem comprometer a privacidade do munícipe, este projeto estruturou uma abordagem inovadora: o uso do **Cadastro Nacional de Estabelecimentos de Saúde (CNES)** da unidade notificadora como **Proxy Territorial Regional**. Como a rede pública municipal é distribuída em bacias consolidadas de urgência e atenção primária (UPH Zona Norte, UPH Zona Oeste, PA Laranjeiras, PA Éden, PA São Bento, PA Brigadeiro Tobias e UBSs locais), o volume de atendimento por estabelecimento reflete fidedignamente a intensidade de transmissão de cada macrorregião da cidade.
+Para resolver essa lacuna sem comprometer a privacidade do munícipe, este projeto estruturou uma abordagem inovadora: o uso do **Cadastro Nacional de Estabelecimentos de Saúde (CNES)** da unidade notificadora como **Proxy Territorial Regional**. Como a rede pública municipal é distribuída em bacias consolidadas de urgência e atenção primária (UPH Zona Norte, UPH Zona Oeste, PA Laranjeiras, PA Éden, PA São Bento, PA Brigadeiro Tobias e UBSs locais), o volume de atendimento por estabelecimento reflete como a melhor aproximação espacial da intensidade de transmissão de cada macrorregião da cidade.
 
 ---
 
