@@ -105,10 +105,10 @@ Para garantir a exatidão no cálculo da Taxa de Incidência (casos por 100.000 
 | **2015** | 644.919 hab. | Estimativa IBGE |
 | **2020** | 687.357 hab. | Estimativa IBGE |
 | **2022** | 723.574 hab. | Censo Demográfico IBGE |
-| **2023** | 740.571 hab. | Estimativa IBGE Atualizada |
-| **2024** | 757.459 hab. | Estimativa IBGE Atualizada |
-| **2025** | 762.172 hab. | Estimativa IBGE Atualizada |
-| **2026** | **766.390 hab.** | Projeção Oficial Atualizada |
+| **2023** | 740.571 hab. | Estimativa IBGE |
+| **2024** | 757.459 hab. | Estimativa IBGE |
+| **2025** | 762.172 hab. | Estimativa IBGE |
+| **2026** | **766.390 hab.** | Projeção Oficial |
 
 ---
 
