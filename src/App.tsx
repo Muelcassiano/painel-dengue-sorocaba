@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { ViewMode, ThemeMode, AccessibilityState } from './types';
 import { Header } from './components/Header';
 import { CitizenView } from './components/CitizenView';
@@ -138,6 +139,9 @@ export default function App() {
         onClose={() => setIsImporterOpen(false)}
         theme={theme}
       />
+
+      {/* Vercel Web Analytics */}
+      <Analytics />
     </div>
   );
 }
