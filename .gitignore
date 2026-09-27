@@ -1,0 +1,33 @@
+# Dependências
+node_modules/
+dist/
+build/
+coverage/
+
+# Logs e Sistema
+*.log
+.DS_Store
+Thumbs.db
+
+# Variáveis de Ambiente e Credenciais Seguras
+.env
+.env.*
+!.env.example
+scripts/.env
+
+# Ambientes Virtuais Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Arquivos de Dados Locais e Bases Brutas (LGPD e sigilo)
+*.dbf
+*.DBF
+dados_dbf/
+dbf/
+dados/
+*.csv
+!public/*.csv

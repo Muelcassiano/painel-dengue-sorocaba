@@ -1,0 +1,36 @@
+name: Sincronizacao Diaria SINAN Sorocaba
+
+on:
+  schedule:
+    # 23h30 Horário de Brasília (BRT, UTC-3) corresponde a 02h30 UTC
+    - cron: '30 2 * * *'
+  workflow_dispatch: # Permite disparar manualmente pelo botão "Run workflow" no GitHub
+
+jobs:
+  sync:
+    name: Sincronizar SINAN com Supabase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Instalar Dependências
+        run: |
+          pip install --upgrade pip
+          pip install -r scripts/requirements.txt
+
+      - name: Executar Rotina Diária de Sincronização
+        env:
+          DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
+          SINAN_USER: ${{ secrets.SINAN_USER }}
+          SINAN_PASS: ${{ secrets.SINAN_PASS }}
+          SINAN_ENDPOINT: ${{ secrets.SINAN_ENDPOINT }}
+        run: |
+          python scripts/sync_sinan_daily.py
