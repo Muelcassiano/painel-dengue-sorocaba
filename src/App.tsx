@@ -4,8 +4,6 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ViewMode, ThemeMode, AccessibilityState } from './types';
 import { Header } from './components/Header';
 import { CitizenView } from './components/CitizenView';
@@ -16,11 +14,31 @@ import { ShieldCheck, Heart, ExternalLink, Activity } from 'lucide-react';
 
 export default function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('citizen');
-  const [theme, setTheme] = useState<ThemeMode>('light');
-  const [accessibility, setAccessibility] = useState<AccessibilityState>({
-    fontSizeStep: 0,
-    highContrast: false,
-    reducedMotion: false,
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    try {
+      const savedTheme = localStorage.getItem('sorocaba_theme');
+      return (savedTheme === 'dark' || savedTheme === 'light') ? savedTheme : 'light';
+    } catch {
+      return 'light';
+    }
+  });
+
+  const [accessibility, setAccessibility] = useState<AccessibilityState>(() => {
+    try {
+      const savedStep = localStorage.getItem('sorocaba_font_step');
+      const savedContrast = localStorage.getItem('sorocaba_contrast') === 'true';
+      return {
+        fontSizeStep: savedStep !== null ? parseInt(savedStep, 10) : 0,
+        highContrast: savedContrast,
+        reducedMotion: false,
+      };
+    } catch {
+      return {
+        fontSizeStep: 0,
+        highContrast: false,
+        reducedMotion: false,
+      };
+    }
   });
 
   const [isTechnicalNoteOpen, setIsTechnicalNoteOpen] = useState(false);
@@ -28,7 +46,15 @@ export default function App() {
 
   // Toggle theme
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setTheme((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      try {
+        localStorage.setItem('sorocaba_theme', next);
+      } catch {
+        // ignore
+      }
+      return next;
+    });
   };
 
   useEffect(() => {
@@ -39,18 +65,44 @@ export default function App() {
     }
   }, [theme]);
 
-  // Font size multiplier based on accessibility state
-  const getFontSizeClass = () => {
-    if (accessibility.fontSizeStep === -1) return 'text-[14px]';
-    if (accessibility.fontSizeStep === 1) return 'text-[17px]';
-    if (accessibility.fontSizeStep === 2) return 'text-[19px]';
-    return 'text-[16px]';
-  };
+  // Aplicação real e imediata da escala de acessibilidade em toda a aplicação (HTML root font-size)
+  useEffect(() => {
+    const scales: Record<number, string> = {
+      [-2]: '80%',
+      [-1]: '90%',
+      [0]: '100%',
+      [1]: '112.5%',
+      [2]: '125%',
+      [3]: '137.5%',
+    };
+    const scale = scales[accessibility.fontSizeStep] || '100%';
+    document.documentElement.style.fontSize = scale;
+
+    try {
+      localStorage.setItem('sorocaba_font_step', String(accessibility.fontSizeStep));
+    } catch {
+      // ignore
+    }
+  }, [accessibility.fontSizeStep]);
+
+  // Alto contraste persistente
+  useEffect(() => {
+    if (accessibility.highContrast) {
+      document.documentElement.classList.add('high-contrast');
+    } else {
+      document.documentElement.classList.remove('high-contrast');
+    }
+    try {
+      localStorage.setItem('sorocaba_contrast', String(accessibility.highContrast));
+    } catch {
+      // ignore
+    }
+  }, [accessibility.highContrast]);
 
   return (
     <div
       id="app-root"
-      className={`min-h-screen transition-colors duration-200 flex flex-col font-sans ${getFontSizeClass()} ${
+      className={`min-h-screen transition-colors duration-200 flex flex-col font-sans ${
         accessibility.highContrast
           ? 'bg-black text-white'
           : theme === 'dark'
@@ -140,10 +192,6 @@ export default function App() {
         onClose={() => setIsImporterOpen(false)}
         theme={theme}
       />
-
-      {/* Vercel Web Analytics */}
-      <Analytics />
-      <SpeedInsights />
     </div>
   );
 }
