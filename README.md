@@ -128,10 +128,37 @@ Para garantir a exatidão no cálculo da Taxa de Incidência (casos por 100.000 
 - **Localizador de Unidades 24 Horas:** Consulta rápida aos polos de pronto atendimento (UPHs e PAs) com telefones e rotas.
 - **Checklist Preventivo Semanal:** Lista de verificação em 10 minutos para eliminação de criadouros domésticos.
 
-### 3. Acessibilidade Universal (e-MAG / WCAG AAA)
-- **Escalabilidade Tipográfica Dinâmica (`A- / A / A+`):** Controle em tempo real do tamanho da fonte em toda a interface.
-- **Modo Alto Contraste:** Tema de alto contraste (fundo preto com elementos amarelos puros), atendendo a pessoas com baixa visão, daltonismo ou fotofobia.
-- **Modos Claro e Escuro Institucionais:** Paleta baseada nas cores oficiais do brasão e identidade visual de Sorocaba/SP.
+### 3. Acessibilidade Universal (e-MAG / WCAG 2.2 AAA)
+Projetada em estrita conformidade com as diretrizes do **Modelo de Acessibilidade em Governo Eletrônico (e-MAG)** do Governo Federal brasileiro e os critérios de nível **AAA** da **Web Content Accessibility Guidelines (WCAG 2.2 / W3C)**, a aplicação implementa uma infraestrutura completa de inclusão digital para todos os perfis de munícipes:
+
+#### 🔠 Motor de Escalabilidade Tipográfica Dinâmica (`A- / A / A+`)
+Diferente de abordagens triviais baseadas em classes CSS pontuais ou zooms estáticos de navegador que quebram layouts, a aplicação utiliza um motor de escalabilidade tipográfica em tempo real que reescreve a raiz percentual do documento (`document.documentElement.style.fontSize`). Como todo o ecossistema visual (Tailwind CSS) está estruturado em unidades relativas `rem`, essa técnica garante redimensionamento proporcional e harmonioso de textos, botões, tabelas, espaçamentos e contêineres:
+
+| Controle | Cliques Acumulados | Escala Percentual | Tamanho Base | Cenário de Uso Recomendado |
+| :---: | :---: | :---: | :---: | :--- |
+| **A-** | 2 cliques *(Limite Mínimo)* | **80%** (`step: -2`) | 12.8px | Visualização de alta densidade em monitores widescreen ou para usuários com visão aguçada. |
+| **A-** | 1 clique | **90%** (`step: -1`) | 14.4px | Redução leve para visualização confortável de tabelas densas e séries históricas extensas. |
+| **A** | *Reset Nominal* | **100%** (`step: 0`) | 16.0px | **Padrão Oficial de Fábrica:** Proporções nominais do design institucional de Sorocaba. |
+| **A+** | 1 clique | **112,5%** (`step: +1`) | 18.0px | Primeiro nível de conforto óptico para leitura continuada sem esforço visual. |
+| **A+** | 2 cliques | **125%** (`step: +2`) | 20.0px | Ampliação substancial recomendada para munícipes idosos ou com presbiopia/baixa visão moderada. |
+| **A+** | 3 cliques *(Limite Máximo)* | **137,5%** (`step: +3`) | 22.0px | **Nível Máximo de Inclusão:** Leitura acessível para pessoas com baixa visão severa, sem sobreposição de textos ou perda de navegabilidade. |
+
+- **Feedback Visual de Estado Ativo:** Os botões de controle contam com sinalização cromática imediata (`bg-amber-400 text-slate-950 font-black shadow-inner` quando `A-` ou `A+` estão ativos, e realce translúcido no `A` quando em estado nominal), além de atributos de acessibilidade para tecnologias assistivas (`aria-pressed`, `aria-label` e `role="group"`).
+- **Persistência de Sessão (`localStorage`):** A escala escolhida pelo usuário é gravada automaticamente no navegador (`sorocaba_font_step`), assegurando que a navegação entre a Visão Cidadão, Visão Técnica e eventuais recarregamentos de página mantenham a preferência do usuário intacta.
+
+#### 👁️ Modo Alto Contraste (High Contrast Mode)
+- **Taxa de Contraste Superior a 7:1:** Supera a métrica exigida para WCAG AAA (7:1 para texto normal e 4.5:1 para texto grande) por meio de um fundo preto puro (`#000000`), tipografia e ícones em amarelo ouro de alta luminância (`#FACC15`) e contornos em alto realce.
+- **Inclusão Oftalmológica:** Proporciona leitura imediata para cidadãos com daltonismo acentuado, catarata, retinopatia diabética ou fotofobia.
+- **Sincronização Global:** Ativa a classe utilitária `.high-contrast` em toda a árvore do DOM e persiste o estado (`sorocaba_contrast`).
+
+#### 🌓 Alternância Cromática Institucional (Modos Claro e Escuro)
+- **Modo Claro (Padrão):** Paleta elegante fundamentada no azul brasão municipal de Sorocaba (`#003865`), azul céu (`#0284c7`) e âmbar alerta (`#f59e0b`).
+- **Modo Escuro (Dark Mode):** Fundo repousante em azul ardósia profundo (`#0a0f1d` e `#0B1528`), minimizando a emissão de luz azul e a fadiga visual em turnos noturnos de trabalho da vigilância em saúde.
+
+#### ⌨️ Navegação por Teclado e Tecnologias Assistivas
+- **Semântica WAI-ARIA Integral:** Estruturação lógica com `role="tab"`, `role="tablist"`, `aria-selected`, `aria-controls` e rótulos contextuais explícitos.
+- **Focus Rings Visíveis:** Foco de teclado nítido em todos os elementos clicáveis e campos de entrada de dados, viabilizando o uso exclusivo via tecla `Tab`.
+- **Compatibilidade com Leitores de Tela:** Estrutura inspecionada e validada para leitura por NVDA, Orca, VoiceOver e TalkBack.
 
 ---
 
