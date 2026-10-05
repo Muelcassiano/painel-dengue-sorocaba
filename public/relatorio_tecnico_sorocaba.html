@@ -55,7 +55,7 @@
     }
     .filters-group {
       display: grid;
-      grid-template-columns: 140px minmax(220px, 300px) minmax(220px, 1fr);
+      grid-template-columns: 140px minmax(260px, 1.3fr) minmax(230px, 1.1fr);
       gap: 14px;
       width: 100%;
       align-items: flex-end;
@@ -161,11 +161,13 @@
       letter-spacing: 0.5px;
     }
     .header-text h2 {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      margin-top: 2px;
+      margin-top: 3px;
+      white-space: nowrap;
+      letter-spacing: 0.2px;
     }
     .badge-periodo {
       background: #e0f2fe;
@@ -310,16 +312,41 @@
       line-height: 1.5;
     }
 
-    /* Rodapé do Boletim */
-    .footer {
+    /* Bloco de Autoria / Responsabilidade Técnica (Centralizado em 2 linhas) */
+    .author-credits {
+      margin-top: 26px;
+      margin-bottom: 20px;
+      text-align: center;
+      width: 100%;
+    }
+    .author-credits .author-line1 {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 3px;
+    }
+    .author-credits .author-line2 {
+      font-size: 11px;
+      font-weight: 500;
+      color: #475569;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* Rodapé Oficial (Centralizado em uma única linha no final do documento) */
+    .footer-system {
       border-top: 1px solid var(--border);
-      padding-top: 12px;
-      margin-top: 30px;
-      font-size: 10px;
+      padding-top: 14px;
+      margin-top: 14px;
+      text-align: center;
+      font-size: 10.5px;
       color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     @media print {
@@ -334,6 +361,77 @@
       }
       .control-bar {
         display: none !important;
+      }
+      .header {
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: space-between !important;
+        border-bottom: 2px solid #003865 !important;
+        padding-bottom: 8px !important;
+        margin-bottom: 12px !important;
+      }
+      .header-text {
+        text-align: left !important;
+        flex: 1 !important;
+      }
+      .header-text h1 {
+        font-size: 18px !important;
+        font-weight: 800 !important;
+        color: #003865 !important;
+        margin: 0 0 2px 0 !important;
+        text-align: left !important;
+        line-height: 1.2 !important;
+      }
+      .header-text h2 {
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        color: #475569 !important;
+        white-space: nowrap !important;
+        margin-top: 2px !important;
+        text-align: left !important;
+        display: block !important;
+      }
+      /* Seção 3: Inicia formatada na segunda folha na impressão */
+      .page-break-section-3 {
+        page-break-before: always !important;
+        break-before: page !important;
+        padding-top: 14px !important;
+      }
+      .table-container,
+      .recommendation-box {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .author-credits {
+        margin-top: 24px !important;
+        margin-bottom: 14px !important;
+        text-align: center !important;
+        width: 100% !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .author-credits .author-line1 {
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        color: #003865 !important;
+        text-align: center !important;
+      }
+      .author-credits .author-line2 {
+        font-size: 10px !important;
+        color: #475569 !important;
+        text-align: center !important;
+      }
+      .footer-system {
+        border-top: 1px solid #cbd5e1 !important;
+        padding-top: 10px !important;
+        margin-top: 12px !important;
+        text-align: center !important;
+        font-size: 9px !important;
+        color: #64748b !important;
+        white-space: nowrap !important;
+        width: 100% !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
     }
   </style>
@@ -381,7 +479,7 @@
     <div class="header">
       <div class="header-text">
         <h1>Prefeitura Municipal de Sorocaba</h1>
-        <h2>Secretaria da Saúde • Divisão de Vigilância Epidemiológica • Projeto Integrador IV</h2>
+        <h2>SECRETARIA DA SAÚDE • DIVISÃO DE VIGILÂNCIA EPIDEMIOLÓGICA • ZOONOSES</h2>
       </div>
       <div class="badge-periodo" id="badgePeriodo">
         2026 • Boletim Oficial
@@ -451,14 +549,19 @@
         <tbody id="corpoTabelaUnidades">
           <!-- Linhas renderizadas dinamicamente via JS com soma exata -->
         </tbody>
+        <tfoot id="rodapeTabelaUnidades">
+          <!-- Totalizador Geral do Período -->
+        </tfoot>
       </table>
     </div>
 
-    <!-- Seção 3: Dinâmica da Curva Epidêmica e Canal Endêmico -->
-    <h3>3. Análise da Curva Epidêmica e Dinâmica Sazonal</h3>
-    <p id="textoDinamicoCurva">
-      No monitoramento de <strong>2026</strong> (Até a Semana Atual (SE 38)), o município registrou <strong>95 casos confirmados</strong> perante <strong>7.267 notificações</strong> avaliadas, resultando em taxa de incidência de <strong>12 casos / 100 mil hab.</strong> (população estimada IBGE: 766.390 habitantes). A transmissão seguiu padrão de controle epidêmico com baixa circulação autóctone no município.
-    </p>
+    <!-- Seção 3: Dinâmica da Curva Epidêmica e Canal Endêmico (Inicia na Página 2 na Impressão) -->
+    <div class="page-break-section-3">
+      <h3>3. Análise da Curva Epidêmica e Dinâmica Sazonal</h3>
+      <p id="textoDinamicoCurva">
+        No monitoramento de <strong>2026</strong> (Até a Semana Atual (SE 38)), o município registrou <strong>95 casos confirmados</strong> perante <strong>7.267 notificações</strong> avaliadas, resultando em taxa de incidência de <strong>12 casos / 100 mil hab.</strong> (população estimada IBGE: 766.390 habitantes). A transmissão seguiu padrão de controle epidêmico com baixa circulação autóctone no município.
+      </p>
+    </div>
 
     <!-- Seção 4: Recomendações e Diretrizes para o Período -->
     <h3>4. Diretrizes Técnicas e Recomendações para a Rede Municipal</h3>
@@ -467,14 +570,19 @@
         <li><strong>Foco em Áreas Críticas:</strong> Intensificar bloqueio de criadouros e aplicação de larvicidas biológicos nas bacias territoriais da Zona Norte e Zona Oeste, que historicamente congregam mais de 60% das notificações.</li>
         <li><strong>Protocolo de Manejo Clínico:</strong> Garantir hidratação oral precoce na suspeição inicial, realização obrigatória da prova do laço em pacientes febris e reconhecimento imediato dos sinais de alarme (dor abdominal intensa, vômitos persistentes e lipotimia).</li>
         <li><strong>Vigilância Laboratorial & Sorotipagem:</strong> Manter envio regular de amostras para sorotipagem viral no Instituto Adolfo Lutz para monitorar a circulação simultânea de sorotipos (DENV-1, DENV-2, DENV-3 e DENV-4).</li>
-        <li><strong>Agilidade na Notificação:</strong> Alimentar o SINAN Online diariamente para atualização contínua do banco do Supabase e sustentação da taxa de letalidade municipal em 0,0%.</li>
+        <li><strong>Agilidade na Notificação:</strong> Alimentar o SINAN Online diariamente para atualização contínua do banco de Dados e sustentação da taxa de letalidade municipal proximo de 0,0%.</li>
       </ol>
     </div>
 
-    <!-- Rodapé -->
-    <div class="footer">
-      <div>Painel Dengue Sorocaba • Projeto Integrador IV • Samuel Abreu (samuel.abreux@gmail.com)</div>
-      <div>Documento gerado dinamicamente com base nas estimativas populacionais do IBGE/SEADE e banco de dados SINAN Online</div>
+    <!-- Bloco de Autoria / Responsabilidade Técnica (Duas linhas inteiras centralizadas imediatamente abaixo da Seção 4) -->
+    <div class="author-credits">
+      <div class="author-line1">Painel Dengue Sorocaba • Projeto Integrador IV • Eixo Computação / Ciência de Dados • Samuel Abreu</div>
+      <div class="author-line2">Tec. de Controle Administrativo na Divisão de Zoonoses (samuel.abreux@gmail.com)</div>
+    </div>
+
+    <!-- Rodapé Oficial com Fonte de Dados (Centralizado em uma única linha no final do documento) -->
+    <div class="footer-system">
+      Documento gerado dinamicamente com base nas estimativas populacionais do IBGE/SEADE e banco de dados SINAN Online
     </div>
   </div>
 
@@ -1002,6 +1110,20 @@
         `;
         corpoTabela.appendChild(tr);
       });
+
+      // Renderiza Rodapé Consolidado com Totalizador Geral Exato
+      const rodapeTabela = document.getElementById('rodapeTabelaUnidades');
+      if (rodapeTabela) {
+        rodapeTabela.innerHTML = `
+          <tr style="background-color: #f1f5f9; font-weight: bold; border-top: 2px solid #cbd5e1;">
+            <td colspan="3" style="text-align: right; font-weight: 800; color: #003865;">TOTAL DO PERÍODO:</td>
+            <td class="num font-bold" style="color: #003865;">${notificados.toLocaleString('pt-BR')}</td>
+            <td class="num font-bold" style="color: #b45309;">${confirmados.toLocaleString('pt-BR')}</td>
+            <td class="num font-bold" style="color: #dc2626;">${graves.toLocaleString('pt-BR')}</td>
+            <td class="num font-bold" style="color: #003865;">${taxaPositividade}%</td>
+          </tr>
+        `;
+      }
 
       // Atualiza Análise Textual da Curva Epidêmica
       const textoCurva = document.getElementById('textoDinamicoCurva');
