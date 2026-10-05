@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const handleFontSizeChange = (delta: number) => {
     setAccessibility((prev) => {
-      const nextStep = Math.max(-1, Math.min(2, prev.fontSizeStep + delta));
+      const nextStep = Math.max(-2, Math.min(3, prev.fontSizeStep + delta));
       return { ...prev, fontSizeStep: nextStep };
     });
   };
@@ -61,38 +61,60 @@ export const Header: React.FC<HeaderProps> = ({
           </span>
           <span className="text-white/40 hidden sm:inline">|</span>
           <span className="text-white/80 hidden md:inline text-[11px]">
-            Secretaria da Saúde • Divisão de Vigilância Epidemiológica
+            Secretaria da Saúde • Divisão de Vigilância Epidemiológica • Zoonoses
           </span>
         </div>
 
         {/* Ferramentas de Acessibilidade */}
         <div className="flex items-center gap-1.5 sm:gap-2 ml-auto" aria-label="Controles de Acessibilidade">
-          {/* Ajuste de Fonte */}
-          <div className="flex items-center bg-white/10 rounded overflow-hidden">
+          {/* Ajuste de Fonte com Indicador Visual Ativo */}
+          <div 
+            className="flex items-center bg-white/10 rounded overflow-hidden border border-white/15"
+            role="group"
+            aria-label="Controle de tamanho de fonte"
+          >
             <button
               id="btn-font-decrease"
+              type="button"
               onClick={() => handleFontSizeChange(-1)}
-              className="px-2 py-0.5 hover:bg-white/20 transition-colors font-bold text-xs"
-              title="Diminuir fonte"
+              className={`px-2 py-0.5 transition-colors font-bold text-xs ${
+                accessibility.fontSizeStep < 0
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-inner'
+                  : 'hover:bg-white/20 text-white'
+              }`}
+              title="Diminuir tamanho do texto (A-)"
               aria-label="Diminuir fonte"
+              aria-pressed={accessibility.fontSizeStep < 0}
             >
               A-
             </button>
             <button
               id="btn-font-reset"
+              type="button"
               onClick={() => setAccessibility((prev) => ({ ...prev, fontSizeStep: 0 }))}
-              className="px-2 py-0.5 hover:bg-white/20 transition-colors text-xs border-x border-white/10"
-              title="Fonte padrão"
+              className={`px-2 py-0.5 transition-colors text-xs border-x border-white/15 ${
+                accessibility.fontSizeStep === 0
+                  ? 'bg-white/30 text-white font-black'
+                  : 'hover:bg-white/20 text-white/90'
+              }`}
+              title="Tamanho padrão de fonte (A 100%)"
               aria-label="Fonte padrão"
+              aria-pressed={accessibility.fontSizeStep === 0}
             >
               A
             </button>
             <button
               id="btn-font-increase"
+              type="button"
               onClick={() => handleFontSizeChange(1)}
-              className="px-2 py-0.5 hover:bg-white/20 transition-colors font-bold text-xs"
-              title="Aumentar fonte"
+              className={`px-2 py-0.5 transition-colors font-bold text-xs ${
+                accessibility.fontSizeStep > 0
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-inner'
+                  : 'hover:bg-white/20 text-white'
+              }`}
+              title="Aumentar tamanho do texto (A+)"
               aria-label="Aumentar fonte"
+              aria-pressed={accessibility.fontSizeStep > 0}
             >
               A+
             </button>
