@@ -223,7 +223,7 @@ export const TechnicalView: React.FC<TechnicalViewProps> = ({ theme, highContras
       </head>
       <body>
         <table>
-          <tr><td colspan="7" class="titulo">PREFEITURA MUNICIPAL DE SOROCABA - VIGILÂNCIA EPIDEMIOLÓGICA</td></tr>
+          <tr><td colspan="7" class="titulo">PREFEITURA MUNICIPAL DE SOROCABA • VIGILÂNCIA EPIDEMIOLÓGICA • ZOONOSES</td></tr>
           <tr><td colspan="7" class="subtitulo">Boletim Técnico de Monitoramento de Arboviroses • Ano Base: ${selectedYear} • População Estimada (IBGE): ${populacaoAno.toLocaleString('pt-BR')} hab.</td></tr>
           <tr><td colspan="7"></td></tr>
 
