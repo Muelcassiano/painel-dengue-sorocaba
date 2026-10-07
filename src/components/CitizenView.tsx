@@ -404,9 +404,6 @@ export const CitizenView: React.FC<CitizenViewProps> = ({ theme, highContrast })
             <span className="px-3 py-1.5 rounded-lg bg-[#003865] text-white text-xs font-bold">
               Central 156 Sorocaba
             </span>
-            <span className="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold">
-              Zoonoses: (15) 3229-7333
-            </span>
           </div>
         </div>
       </section>
