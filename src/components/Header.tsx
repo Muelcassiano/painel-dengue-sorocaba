@@ -175,10 +175,10 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Abas Principais de Navegação (Design Moderno & Responsivo) */}
-        <div className="flex flex-wrap items-center gap-2 pt-1 md:pt-0">
+        {/* Abas Principais de Navegação e Ações (Design Estável sem Deslocamento) */}
+        <div className="flex flex-col md:flex-row md:items-center gap-2.5 md:gap-2 pt-1 md:pt-0 w-full md:w-auto">
           <nav 
-            className="p-1 rounded-xl bg-black/30 backdrop-blur-md border border-white/10 flex items-center w-full sm:w-auto"
+            className="p-1 rounded-xl bg-black/30 backdrop-blur-md border border-white/10 flex items-center w-full md:w-auto shrink-0"
             role="tablist"
             aria-label="Modo de Navegação do Painel"
           >
@@ -187,13 +187,13 @@ export const Header: React.FC<HeaderProps> = ({
               role="tab"
               aria-selected={viewMode === 'citizen'}
               onClick={() => setViewMode('citizen')}
-              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex-1 md:flex-initial flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
                 viewMode === 'citizen'
                   ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
                   : 'text-white/80 hover:text-white hover:bg-white/10'
               }`}
             >
-              <Users className="w-4 h-4" />
+              <Users className="w-4 h-4 shrink-0" />
               <span>Visão Cidadão</span>
             </button>
 
@@ -202,43 +202,60 @@ export const Header: React.FC<HeaderProps> = ({
               role="tab"
               aria-selected={viewMode === 'surveillance'}
               onClick={() => setViewMode('surveillance')}
-              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex-1 md:flex-initial flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
                 viewMode === 'surveillance'
                   ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
                   : 'text-white/80 hover:text-white hover:bg-white/10'
               }`}
             >
-              <Activity className="w-4 h-4" />
+              <Activity className="w-4 h-4 shrink-0" />
               <span>Visão Técnica</span>
             </button>
           </nav>
 
-          {/* Ações Auxiliares: Nota Técnica e Relatório PDF (exibido apenas na visão cidadão para não duplicar com o boletim técnico) */}
-          <div className="flex items-center gap-2 ml-auto sm:ml-0">
+          {/* Ações Auxiliares: Nota Técnica e Relatório PDF */}
+          <div className="flex items-center gap-2 w-full md:w-auto justify-end">
             <button
               id="btn-technical-note"
               onClick={onOpenTechnicalNote}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors"
+              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors shrink-0"
               title="Nota Técnica e Metodologia DATASUS / CNES"
             >
-              <HelpCircle className="w-3.5 h-3.5 text-amber-300" />
-              <span className="hidden sm:inline">Nota Técnica</span>
+              <HelpCircle className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+              <span>Nota Técnica</span>
             </button>
 
-            {/* O Botão Relatório PDF só é exibido na Visão Cidadão para evitar duplicidade com o Boletim Técnico da Visão Técnica */}
+            {/* No Mobile: Exibe Relatório PDF ocupando o outro lado da linha quando ativo */}
             {viewMode === 'citizen' && (
               <a
-                id="btn-download-pdf-report"
+                id="btn-download-pdf-report-mobile"
                 href="./relatorio_tecnico_sorocaba.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm transition-colors"
+                className="flex-1 md:hidden inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm transition-all whitespace-nowrap"
                 title="Abrir o Relatório Oficial em PDF"
               >
-                <FileDown className="w-3.5 h-3.5" />
+                <FileDown className="w-3.5 h-3.5 shrink-0" />
                 <span>Relatório PDF</span>
               </a>
             )}
+
+            {/* No Desktop: Slot de largura fixa para o botão Relatório PDF (elimina deslocamento dos demais botões) */}
+            <div className="hidden md:flex md:w-[130px] items-center justify-start shrink-0">
+              {viewMode === 'citizen' && (
+                <a
+                  id="btn-download-pdf-report"
+                  href="./relatorio_tecnico_sorocaba.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm transition-all whitespace-nowrap"
+                  title="Abrir o Relatório Oficial em PDF"
+                >
+                  <FileDown className="w-3.5 h-3.5 shrink-0" />
+                  <span>Relatório PDF</span>
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
